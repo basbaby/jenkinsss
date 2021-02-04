@@ -12,7 +12,7 @@ pipeline {
                     sh "mvn -f pom.xml sonar:sonar -Dsonar.sources=src/ -Dsonar.exclusions=**/*java*/** -Dsonar.test.exclusions=**/*java*/**"
                     script {
                     timeout(time: 1, unit: 'HOURS') { 
-                        sh "curl -u admin:admin -X GET -H 'Accept: application/json' http://localhost:9000/api/qualitygates/project_status?projectKey=com.mycompany:jenkinss > status.json"
+                        sh "curl -u admin:admin -X GET -H 'Accept: application/json' http://104.248.169.167:9000/api/qualitygates/project_status?projectKey=com.mycompany:jenkinss > status.json"
                         def json = readJSON file:'status.json'
                         echo "${json.projectStatus}"
                         if ("${json.projectStatus.status}" != "OK") {
